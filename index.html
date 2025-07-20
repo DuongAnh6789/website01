@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin Tức Bóng Đá - Cập nhật nhanh nhất</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        /* Header */
+        header {
+            background: #1e3a8a;
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+        
+        .header-info {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Top Navigation */
+        .top-nav {
+            background: #2563eb;
+            padding: 12px 20px;
+            border-bottom: 2px solid #1e40af;
+        }
+        
+        .nav-list {
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+        }
+        
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+            white-space: nowrap;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        /* Hot News Section */
+        .hot-news {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hot-news::before {
+            content: '🔥';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+        
+        .hot-news h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        
+        .hot-news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        
+        .hot-news-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #fbbf24;
+        }
+        
+        .hot-news-item h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #fbbf24;
+        }
+        
+        .hot-news-item p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        /* News Sections */
+        .news-section {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: #f1f5f9;
+            padding: 15px 20px;
+            border-bottom: 2px solid #e2e8f0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            color: #1e40af;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .section-content {
+            padding: 20px;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .news-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #3b82f6;
+        }
+        
+        .news-card-header {
+            background: #f8fafc;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .news-card h3 {
+            font-size: 1rem;
+            color: #1e40af;
+            margin-bottom: 5px;
+        }
+        
+        .news-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+        
+        .news-card-content {
+            padding: 15px;
+        }
+        
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            padding-left: 0;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .widget-header {
+            background: #1e40af;
+            color: white;
+            padding: 12px 15px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        .widget-content {
+            padding: 15px;
+        }
+        
+        .league-table {
+            width: 100%;
+        }
+        
+        .league-table th,
+        .league-table td {
+            padding: 8px 5px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.85rem;
+        }
+        
+        .league-table th {
+            background: #f8fafc;
+            font-weight: bold;
+            color: #374151;
+        }
+        
+        .league-table tr:hover {
+            background: #f8fafc;
+        }
+        
+        .match-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .match-item:last-child {
+            border-bottom: none;
+        }
+        
+        .match-teams {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        
+        .match-time {
+            color: #dc2626;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        
+        .live-score {
+            background: #dc2626;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: #d1d5db;
+            padding: 30px 20px 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            color: #fbbf24;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #fbbf24;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 20px;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                padding-left: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .nav-list {
+                gap: 15px;
+            }
+            
+            .main-content {
+                padding: 15px;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hot-news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <h1 class="logo">⚽ BÓNG ĐÁ 24H</h1>
+                <div class="header-info">
+                    Cập nhật nhanh - Phân tích sâu - Tin nóng từng giây
+                </div>
+            </div>
+        </header>
+        
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="nav-list">
+                <a href="#" class="nav-item active">Trang chủ</a>
+                <a href="#" class="nav-item">V-League</a>
+                <a href="#" class="nav-item">Premier League</a>
+                <a href="#" class="nav-item">La Liga</a>
+                <a href="#" class="nav-item">Serie A</a>
+                <a href="#" class="nav-item">Bundesliga</a>
+                <a href="#" class="nav-item">Champions League</a>
+                <a href="#" class="nav-item">ĐT Việt Nam</a>
+                <a href="#" class="nav-item">Chuyển nhượng</a>
+                <a href="#" class="nav-item">Video</a>
+            </div>
+        </nav>
+        
+        <div class="main-content">
+            <main>
+                <!-- Hot News -->
+                <section class="hot-news">
+                    <h2>🔥 Tin nóng - Cập nhật liên tục</h2>
+                    <div class="hot-news-grid">
+                        <div class="hot-news-item">
+                            <h3>⚡ Chuyển nhượng sốc</h3>
+                            <p>Siêu sao châu Âu chuẩn bị gia nhập CLB hàng đầu với mức phí kỷ lục 150 triệu euro. Hợp đồng 5 năm đã được thỏa thuận!</p>
+                        </div>
+                        <div class="hot-news-item">
+                            <h3>🏆 Champions League</h3>
+                            <p>Trận cầu kinh điển đêm qua! Đội bóng Anh ngược dòng ngoạn mục với 3 bàn thắng trong 20 phút cuối, giành vé bán kết.</p>
+                        </div>
+                        <div class="hot-news-item">
+                            <h3>🇻🇳 ĐT Việt Nam</h3>
+                            <p>HLV Park Hang-seo công bố danh sách 25 cầu thủ cho trận đấu quan trọng. Nhiều gương mặt mới được gọi lên đội tuyển.</p>
+                        </div>
+                        <div class="hot-news-item">
+                            <h3>💰 V-League</h3>
+                            <p>CLB HAGL ký hợp đồng với tiền đạo ngoại binh chất lượng cao. Kỳ vọng sẽ tăng cường sức mạnh tấn công cho mùa giải mới.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Premier League -->
+                <section class="news-section">
+                    <div class="section-header">
+                        <h2 class="section-title">🇬🇧 Premier League</h2>
+                    </div>
+                    <div class="section-content">
+                        <div class="news-grid">
+                            <div class="news-card">
+                                <div class="news-card-header">
+                                    <h3>Manchester United vs Liverpool</h3>
+                                </div>
+                                <div class="news-card-content">
+                                    <p>Đại chiến giữa hai đội bóng truyền thống của nước Anh sẽ diễn ra vào cuối tuần này tại Old Trafford. Cả hai đội đều cần chiến thắng để duy trì hy vọng vô địch.</p>
+                                    <div class="news-meta">
+                                        <span>🕒 2 giờ trước</span>
+                                        <span class="live-score">LIVE</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="news-card">
+                                <div class="news-card-header">
+                                    <h3>Arsenal mua sắm mạnh tay</h3>
+                                </div>
+                                <div class="news-card-content">
+                                    <p>Pháo thủ London chuẩn bị chi 80 triệu bảng để chiêu mộ tiền vệ tài năng từ La Liga. Thương vụ có thể hoàn tất trong tuần này.</p>
+                                    <div class="news-meta">
+                                        <span>🕒 4 giờ trước</span>
+                                        <span>💬 127</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="news-card">
+                                <div class="news-card-header">
+                                    <h3>Chelsea bán loạt cầu thủ</h3>
+                                </div>
+                                <div class="news-card-content">
+                                    <p>The Blues lên kế hoạch thanh lý nhiều cầu thủ để giải quyết khủng hoảng tài chính và tuân thủ Fair Play. Danh sách 8 cái tên được tiết lộ.</p>
+                                    <div class="news-meta">
+                                        <span>🕒 6 giờ trước</span>
+                                        <span>💬 89</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- La Liga -->
+                <section class="news-section">
+                    <div class="section-header">
+                        <h2 class="section-title">🇪🇸 La Liga</h2>
+                    </div>
+                    <div class="section-content">
+                        <div class="news-grid">
+                            <div class="news-card">
+                                <div class="news-card-header">
+                                    <h3>Real Madrid gia hạn với Modric</h3>
+                                </div>
+                                <div class="news-card-content">
+                                    <p>Huyền thoại Croatia chính thức ký gia hạn hợp đồng thêm 2 năm với Los Blancos. Ở tuổi 38, anh vẫn là trụ cột không thể thay thế.</p>
+                                    <div class="news-meta">
+                                        <span>🕒 1 giờ trước</span>
+                                        <span>💬 234</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="news-card">
+                                <div class="news-card-header">
+                                    <h3>Barcelona tìm HLV mới</h3>
+                                </div>
+                                <div class="news-card-content">
+                                    <p>Sau kết quả thất vọng ở Champions League, Ban lãnh đạo Barca đang cân nhắc thay đổi ghế nóng. Nhiều ứng viên sáng giá được nhắc đến.</p>
+                                    <div class="news-meta">
+                                        <span>🕒 3 giờ trước</span>
+                                        <span>💬 156</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="news-card">
+                                <div class="news-card-header">
+                                    <h3>Atletico Madrid săn "bom tấn"</h3>
+                                </div>
+                                <div class="news-card-content">
+                                    <p>Los Colchoneros đang đàm phán với siêu sao Nam Mỹ. Thương vụ trị giá 100 triệu euro có thể trở thành kỷ lục chuyển nhượng của CLB.</p>
+                                    <div class="news-meta">
+                                        <span>🕒 5 giờ trước</span>
+                                        <span>💬 78</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- V-League -->
+                <section class="news-section">
+                    <div class="section-header">
+                        <h2 class="section-title">🇻🇳 V-League</h2>
+                    </div>
+                    <div class="section-content">
+                        <div class="news-grid">
+                            <div class="news-card">
+                                <div class="news-card-header">
+                                    <h3>Hà Nội FC thay HLV</h3>
+                                </div>
+                                <div class="news-card-content">
+                                    <p>Sau chuỗi kết quả kém ấn tượng, đội bóng Thủ đô quyết định chia tay với HLV ngoại. Ứng viên thay thế đang được tích cực liên hệ.</p>
+                                    <div class="news-meta">
+                                        <span>🕒 30 phút trước</span>
+                                        <span>💬 67</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="news-card">
+                                <div class="news-card-header">
+                                    <h3>Viettel FC chiêu mộ thành công</h3>
+                                </div>
+                                <div class="news-card-content">
+                                    <p>Đội bóng của Bộ Quốc phòng chính thức sở hữu tiền đạo xuất sắc từ Thai League. Hợp đồng 3 năm với mức lương hấp dẫn.</p>
+                                    <div class="news-meta">
+                                        <span>🕒 2 giờ trước</span>
+                                        <span>💬 45</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="news-card">
+                                <div class="news-card-header">
+                                    <h3>HAGL đầu tư mạnh cho đội trẻ</h3>
+                                </div>
+                                <div class="news-card-content">
+                                    <p>Học viện bóng đá Nutifood-JMG HAGL công bố kế hoạch đầu tư 50 tỷ đồng để nâng cấp cơ sở vật chất và tuyển dụng chuyên gia nước ngoài.</p>
+                                    <div class="news-meta">
+                                        <span>🕒 4 giờ trước</span>
+                                        <span>💬 29</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Đội tuyển Việt Nam -->
+                <section class="news-section">
+                    <div class="section-header">
+                        <h2 class="section-title">🏆 Đội tuyển Việt Nam</h2>
+                    </div>
+                    <div class="section-content">
+                        <div class="news-grid">
+                            <div class="news-card">
+                                <div class="news-card-header">
+                                    <h3>Chuẩn bị cho AFF Cup</h3>
+                                </div>
+                                <div class="news-card-content">
+                                    <p>HLV Philippe Troussier công bố kế hoạch tập huấn cho AFF Cup 2024. Đội tuyển sẽ có 2 trận giao hữu quan trọng trước khi tham dự giải đấu.</p>
+                                    <div class="news-meta">
+                                        <span>🕒 1 giờ trước</span>
+                                        <span>💬 198</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="news-card">
+                                <div class="news-card-header">
+                                    <h3>Quang Hải báo tin vui</h3>
+                                </div>
+                                <div class="news-card-content">
+                                    <p>Tiền vệ tài năng đã bình phục hoàn toàn chấn thương và sẵn sàng trở lại đội tuyển. Anh đang có phong độ ấn tượng tại CLB mới.</p>
+                                    <div class="news-meta">
+                                        <span>🕒 3 giờ trước</span>
+                                        <span>💬 142</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="news-card">
+                                <div class="news-card-header">
+                                    <h3>U23 Việt Nam thắng lớn</h3>
+                                </div>
+                                <div class="news-card-content">
+                                    <p>Thế hệ trẻ tỏ ra vượt trội trong trận giao hữu quốc tế, thắng 4-0 trước đối thủ mạnh từ Đông Nam Á. Nhiều cái tên sáng giá được chú ý.</p>
+                                    <div class="news-meta">
+                                        <span>🕒 5 giờ trước</span>
+                                        <span>💬 87</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Bảng xếp hạng -->
+                <div class="sidebar-widget">
+                    <div class="widget-header">📊 Bảng xếp hạng Premier League</div>
+                    <div class="widget-content">
+                        <table class="league-table">
+                            <thead>
+                                <tr>
+                                    <th>Hạng</th>
+                                    <th>Đội</th>
+                                    <th>Trận</th>
+                                    <th>Điểm</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Man City</td>
+                                    <td>20</td>
+                                    <td><strong>45</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Arsenal</td>
+                                    <td>20</td>
+                                    <td><strong>43</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Liverpool</td>
+                                    <td>19</td>
+                                    <td><strong>42</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Newcastle</td>
+                                    <td>20</td>
+                                    <td><strong>38</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Man United</td>
+                                    <td>20</td>
+                                    <td><strong>35</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Lịch thi đấu -->
+                <div class="sidebar-widget">
+                    <div class="widget-header">📅 Lịch thi đấu hôm nay</div>
+                    <div class="widget-content">
+                        <div class="match-item">
+                            <div class="match-teams">
+                                <strong>Man United vs Liverpool</strong><br>
+                                <small>Premier League</small>
+                            </div>
+                            <div class="match-time">22:00</div>
+                        </div>
+                        <div class="match-item">
+                            <div class="match-teams">
+                                <strong>Real Madrid vs Barcelona</strong><br>
+                                <small>La Liga</small>
+                            </div>
+                            <div class="match-time">02:00</div>
+                        </div>
+                        <div class="match-item">
+                            <div class="match-teams">
+                                <strong>Bayern vs Dortmund</strong><br>
+                                <small>Bundesliga</small>
+                            </div>
+                            <div class="match-time">23:30</div>
+                        </div>
+                        <div class="match-item">
+                            <div class="match-teams">
+                                <strong>HAGL vs Hà Nội FC</strong><br>
+                                <small>V-League</small>
+                            </div>
+                            <div class="match-time">19:00</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Top ghi bàn -->
+                <div class="sidebar-widget">
+                    <div class="widget-header">⚽ Top ghi bàn Premier League</div>
+                    <div class="widget-content">
+                        <table class="league-table">
+                            <thead>
+                                <tr>
+                                    <th>Cầu thủ</th>
+                                    <th>CLB</th>
+                                    <th>Bàn thắng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Haaland</td>
+                                    <td>Man City</td>
+                                    <td><strong>18</strong></t
